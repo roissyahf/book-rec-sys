@@ -71,24 +71,22 @@ Berdasarkan visualisasi pada Gambar 1, 2 dan 3, diperoleh informasi:
 ### Content-based filtering
 Content-based filtering merekomendasikan item berdasarkan parameter atau ciri khas yang dimiliki item tersebut, seperti judul buku, author, genree. Keuntungan dari content-based filtering yakni, informasi untuk setiap perwakilan elemen data diketahui, sehingga memungkinkan pengguna memperoleh informasi yang relevan (Putra & Santika, 2020). Sedangkan content-based filtering juga memiliki kekurangan, yaitu hasil rekomendasinya hanya mengacu pada isi item rekomendasi, sehingga hasil rekomendasinya kurang beragam.
 
-K-nearest neighbor (K-NN) adalah algoritma yang digunakan untuk menentukan tetangga (pengguna terdekat) mana yang paling relevan untuk menghasilkan rekomendasi yang dapat diandalkan, sehingga memungkinkan untuk memilih hanya k tetangga terbaik dengan nilai korelasi tertinggi (Hssina, Grota, & Erritali, 2021). Untuk merekomendasikan barang kepada pengguna V, k-NN akan mencari pengguna lain yang memiliki riwayat transaksi yang mirip dengan pengguna V. Setelah mendapatkan daftar pengguna yang mirip dengan pengguna V, k-NN mencari produk yang dibeli oleh pengguna yang mirip dengan pengguna V dan merekomendasikan produk yang belum pernah dibeli oleh pengguna V, diurutkan berdasarkan kriteria terlaris (Aditya, Budi, & Munajat, 2016).
+K-nearest neighbor (K-NN) adalah algoritma yang digunakan untuk menentukan tetangga (pengguna terdekat) mana yang paling relevan untuk menghasilkan rekomendasi yang dapat diandalkan, sehingga memungkinkan untuk memilih hanya k tetangga terbaik dengan nilai korelasi tertinggi (Hssina, Grota, & Erritali, 2021). Untuk merekomendasikan barang kepada pengguna V, K-NN akan mencari pengguna lain yang memiliki riwayat transaksi yang mirip dengan pengguna V. Setelah mendapatkan daftar pengguna yang mirip dengan pengguna V, K-NN mencari produk yang dibeli oleh pengguna yang mirip dengan pengguna V dan merekomendasikan produk yang belum pernah dibeli oleh pengguna V, diurutkan berdasarkan kriteria terlaris (Aditya, Budi, & Munajat, 2016).
 
 Dalam memberikan rekomendasi, k-NN akan mencari item yang mirip yang kiranya disukai oleh pengguna. Similarity-score menjadi ukuran yang digunakan untuk menilai kemiripan item. Similarity-score berkisar antara 0 hingga 1, semakin tinggi nilainya semakin mirip kedua item tersebut. Anggap terdapat dua item, maka fungsi sim(i1, i2) dapat menggambarkan kemiripan kedua item tersebut (kim, 2019).
 
 Proyek ini menggunakan cosine similarity untuk menghitung kemiripan antar buku yang akan direkomendasikan. Cosine similarity akan menghitung kesamaan antara dua vektor dengan menghitung sudut kosinusnya, serta melihat apakah kedua vektor menghadap ke arah yang sama. Sudut kosinusnya yang semakin kecil, mengindikasikan similarity-score yang besar antara kedua item, yang artinya kedua item semakin mirip. Berikut rumusnya:
 
 ```math
-\[
-\text{Cosine Similarity} = \frac{A \cdot B}{\|A\| \times \|B\|}
-\]
-
-Dimana:
-- \( A \cdot B \) adalah hasil perkalian dot (dot product) antara vektor A dan vektor B
-- \( \|A\| \) adalah norma (panjang) vektor A
-- \( \|B\| \) adalah norma (panjang) vektor B
+Cosine(x,y) = \frac{x \cdot y}{|x||y|}
 ```
 
-Gambar 6. Hasil rekomnedasi buku dengan K-NN
+Dimana:
+- x.y adalah hasil perkalian dot antara vektor x dan vektor y
+- |A| adalah norma (panjang) vektor x
+- |B| adalah norma (panjang) vektor y
+
+Gambar 6. Hasil rekomendasi buku dengan K-NN
 ![Screenshot 2024-11-09 143903 knn](https://github.com/user-attachments/assets/3ac22aaa-31d2-4d35-b3f6-08126ea66e1b)
 
 ### Collaborative filtering
@@ -98,12 +96,12 @@ Keuntungan collaborative-filtering yaitu (1) tidak perlu _domain knowledge_ kare
 
 Neural Collaborative Filtering (NCF) digunakan dalam proyek ini. Arsitektur NCF memiliki _input data sparse_ (rating pengguna dan peringkat item), yang diubah menjadi informasi _dense information_ menggunakan _embedding layer_. Multilayer perceptron kemudian menggabungkan kedua fitur. Dalam proses _training_, rating yang diketahui digunakan sebagai label. Setelah proses _training_ selesai, model dapat memprediksi rating yang tidak diketahui dalam proses nonlinier (Bobadilla dkk., 2020).
 
-Gambar 7. Hasil rekomnedasi buku dengan Deep Learning
+Gambar 7. Hasil rekomendasi buku dengan Deep Learning
 ![Screenshot 2024-11-09 140500 DL test](https://github.com/user-attachments/assets/086a79b7-8953-496a-9657-d1581107f6a8)
 
 Projek ini juga menggunakan model lain yaitu Singular Value Decomposition (SVD) yang melakukan faktorisasi pada matriks bukan nol (Zheng, Ding, & Nie, 2018). Algoritma ini mengurangi jumlah fitur dari sebuah dataset dengan mengurangi dimensi ruang dari N-dimensi menjadi K-dimensi (di mana K < N), struktur matriks yang digunakan yaitu setiap baris mewakili pengguna, dan setiap kolom mewakili item. Elemen-elemen dari matriks ini adalah rating yang diberikan kepada item oleh pengguna.
 
-Gambar 8. Hasil rekomnedasi buku dengan SVD
+Gambar 8. Hasil rekomendasi buku dengan SVD
 ![Screenshot 2024-11-09 143744 svd](https://github.com/user-attachments/assets/cff407aa-1c09-4042-9fe2-aac911d1c7a4)
 
 ## Evaluation
@@ -144,7 +142,7 @@ Aditya, P. H., Budi, I., & Munajat, Q. (2016). A comparative analysis of memory-
 
 Bobadilla, J., Alonso, S., & Hernando, A. (2020). Deep learning architecture for collaborative filtering recommender systems. Applied Sciences, 10(7), 2441. https://doi.org/10.3390/app10072441
 
-Dewi, R. K. (2024). Mengapa Minat Baca di Indonesia Rendah? Ini Penjelasannya. https://www.kompas.com/skola/read/2024/01/17/150723169/mengapa-minat-baca-di-indonesia-rendah-ini-penjelasannya?page=all#:~:text=Kurangnya%20minat%20baca%20di%20Indonesia,dan%20minimnya%20sarana%20perpustakaan%20sekolah.&text=Ini%20menjadi%20faktor%20utama%20penyebab%20minat%20baca%20siswa%20rendah.&text=Sementara%20itu%2C%20sekolah%20tidak%20selalu,kebiasaan%20membaca%20bagi%20para%20siswa.
+Dewi, R. K. (2024). Mengapa Minat Baca di Indonesia Rendah? Ini Penjelasannya. https://www.kompas.com/skola/read/2024/01/17/150723169/mengapa-minat-baca-di-indonesia-rendah-ini-penjelasannya?.
 
 Google for Developers. (2024). Collaborative filtering advantages & disadvantages. https://developers.google.com/machine-learning/recommendation/collaborative/summary.
 
