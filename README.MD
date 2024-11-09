@@ -83,8 +83,8 @@ Cosine(x,y) = \frac{x \cdot y}{|x||y|}
 
 Dimana:
 - x.y adalah hasil perkalian dot antara vektor x dan vektor y
-- |A| adalah norma (panjang) vektor x
-- |B| adalah norma (panjang) vektor y
+- |x| adalah norma (panjang) vektor x
+- |y| adalah norma (panjang) vektor y
 
 Gambar 6. Hasil rekomendasi buku dengan K-NN
 ![Screenshot 2024-11-09 143903 knn](https://github.com/user-attachments/assets/3ac22aaa-31d2-4d35-b3f6-08126ea66e1b)
