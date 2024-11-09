@@ -78,13 +78,13 @@ Dalam memberikan rekomendasi, k-NN akan mencari item yang mirip yang kiranya dis
 Proyek ini menggunakan cosine similarity untuk menghitung kemiripan antar buku yang akan direkomendasikan. Cosine similarity akan menghitung kesamaan antara dua vektor dengan menghitung sudut kosinusnya, serta melihat apakah kedua vektor menghadap ke arah yang sama. Sudut kosinusnya yang semakin kecil, mengindikasikan similarity-score yang besar antara kedua item, yang artinya kedua item semakin mirip. Berikut rumusnya:
 
 ```math
-Cosine(x,y) = \frac{x \cdot y}{|x||y|}
+Cosine(A,B) = \frac{A \cdot B}{|A||B|}
 ```
 
 Dimana:
-- x.y adalah hasil perkalian dot antara vektor x dan vektor y
-- |x| adalah norma (panjang) vektor x
-- |y| adalah norma (panjang) vektor y
+- A.B adalah hasil perkalian dot antara vektor A dan vektor B
+- |A| adalah norma (panjang) vektor A
+- |B| adalah norma (panjang) vektor B
 
 Gambar 6. Hasil rekomendasi buku dengan K-NN
 ![Screenshot 2024-11-09 143903 knn](https://github.com/user-attachments/assets/3ac22aaa-31d2-4d35-b3f6-08126ea66e1b)
