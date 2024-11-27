@@ -31,7 +31,7 @@ Proyek ini menggunakan dataset dari Kaggle yang berjudul *Book Recommendation Da
 Tabel 1. Informasi detail dari Books.csv
 Dataset ini mengandung informasi tentang buku, yang diidentifikasi berdasarkan ISBN.
 | **Nama variabel** | **Uraian** | **Jumlah baris** | **Count** | **Dtype** |
-| --- | --- | --- | -- |
+| --- | --- | --- | -- | -- |
 | ISBN | Kode pengidentifikasian buku yang bersifat unik, yang terdiri dari deretan angka 13 digit mengandung informasi: Judul buku, Penerbit, Kelompok penerbit | 271360 | non-null | object |
 | Book-Title | Judul buku | 271360 | non-null | object |
 | Book-Author | Penulis buku | 271358 | non-null | object |
@@ -49,7 +49,7 @@ Berbicara tentang kondisi data pada **Books.csv:**
 
 Tabel 2. Informasi detail dari Ratings.csv
 | **Nama variabel** | **Uraian** | **Jumlah baris** | **Count** | **Dtype** |
-| --- | --- | --- | -- |
+| --- | --- | --- | -- | -- |
 | User-ID | ID pengguna yang telah dianonimkan dan dipetakan ke bilangan bulat | 1149780 | non-null | int64 |
 | ISBN | Kode pengidentifikasian buku yang bersifat unik, yang terdiri dari deretan angka 13 digit mengandung informasi: Judul buku, Penerbit, Kelompok penerbit | 1149780 | non-null | object |
 | Book-Rating | Rating buku yang diberikan oleh pengguna, baik secara eksplisit yang dinyatakan dalam skala 1-10 (nilai yang lebih tinggi menunjukkan apresiasi yang lebih tinggi), atau implisit dinyatakan dengan 0 | 1149780 | non-null | int64 |
@@ -58,7 +58,7 @@ Meskipun terdapat rating implisit yang ditandai dengan nilai 0, projek ini hanya
 
 Tabel 3. Informasi detail dari Users.csv
 | **Nama variabel** | **Uraian** | **Jumlah baris** | **Count** | **Dtype** |
-| --- | --- | --- | -- |
+| --- | --- | --- | -- | -- |
 | User-ID | ID pengguna yang telah dianonimkan untuk menjaga privasi | 278858 | non-null | int64 |
 | Location | Lokasi pengguna | 278858 | non-null | object |
 | Age | Usia pengguna | 168096 | non-null | float64 |
@@ -92,26 +92,32 @@ Jumlah data pada Books.csv dan Ratings.cv yang mencapai ratusan ribu, akan membe
 
 Setelah itu, dataset hasil penggabungan tadi, ditransformasi ke dalam bentuk pivot table, dengan `index='Book-Title'`, `columns='User-ID'`, dan value yang mengisi sel-sel tersebut yaitu `Book-Rating`, dengan nilai nol akan mengisi sel-sel kosong. Sebelum memasuki model KNN, pivot table akan dikonversi ke bentuk sparse-matrix untuk menyimpan data yang berisi sejumlah besar elemen bernilai nol, sehingga dapat menghemat sejumlah besar memori dan mempercepat pemrosesan data. 
 
-Dalam projek ini, juga diimplementasikan **content-based filtering dengan menghitung cosine-similarity**, tahap pemrosesannya melibatkan penggunaan TF-IDF (Term Frequency and Inverse Document Frequency). **TF-IDF** merupakan ukuran relevansi sebuah kata dengan dokumen, yang memiliki formula:
+Dalam projek ini, juga diimplementasikan **content-based filtering dengan menghitung cosine-similarity**, tahap pemrosesannya melibatkan penggunaan TF-IDF (Term Frequency and Inverse Document Frequency). **TF-IDF** merupakan ukuran relevansi sebuah kata dengan dokumen, yang memiliki formula (Katsov, 2017):
+```math
 \[
 TF\text{-}IDF(t, d) = TF(t, d) \times IDF(t)
 \]
+```
 
-**Term-Frequency** merupakan frekuensi kemunculan term i pada dokumen j dibagi dengan total term pada dokumen j, dengan formula:
+**Term-Frequency** merupakan frekuensi kemunculan term i pada dokumen j dibagi dengan total term pada dokumen j, dengan formula (Katsov, 2017):
+```math
 \[
-TF(t, d) = \frac{f(t, d)}{\sum_{k} f(k, d)}
+TF(t, d) = \frac{f(t, d)}{\sum_{k}f(k, d)}
 \]
+```
 
 Di mana:
 - \(t\) adalah istilah (term) tertentu.
 - \(d\) adalah dokumen tertentu.
 - \(f(t, d)\) adalah frekuensi kemunculan istilah \(t\) dalam dokumen \(d\).
-- \(\sum_{k} f(k, d)\) adalah jumlah semua istilah dalam dokumen \(d\).
+- \(\sum_{k}f(k, d)\) adalah jumlah semua istilah dalam dokumen \(d\).
 
-sedangkan **Inverse Document Frequency** akan mengurangi bobot suatu term jika kemunculannya banyak tersebar diseluruh dokumen, memiliki formula:
+sedangkan **Inverse Document Frequency** akan mengurangi bobot suatu term jika kemunculannya banyak tersebar diseluruh dokumen, memiliki formula (Katsov, 2017):
+```math
 \[
 IDF(t) = \log\left(\frac{N}{1 + n(t)}\right)
 \]
+```
 
 Di mana:
 - \(t\) adalah istilah (term) tertentu.
@@ -278,6 +284,8 @@ Google for Developers. (2024). Collaborative filtering advantages & disadvantage
 Hssina, B., Grota, A., & Erritali, M. (2021). Recommendation system using the k-nearest neighbors and singular value decomposition algorithms. International Journal of Power Electronics and Drive Systems/International Journal of Electrical and Computer Engineering, 11(6), 5541. https://doi.org/10.11591/ijece.v11i6.pp5541-5548.
 
 Ilyasa, M. Dzikri Hisyam., Yamasari, Yuni. (2023). Perbandingan Cosine Similarity Dan Euclidean Distance Pada Model Rekomendasi Buku Dengan Metode Item Based Collaborative Filtering. Journal of Informatics and Computer Science (JINACS). Vol. 04, No. 03.
+
+Katsov, I. (2017). Introduction to Algorithmic Marketing: Artificial Intelligence for Marketing Operations.
 
 Kim, Falk. (2019) "Practical Recommender Systems". Manning Publications. https://learning.oreilly.com/library/view/practical-recommender-systems/9781617292705/.
 
