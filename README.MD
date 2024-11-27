@@ -106,7 +106,10 @@ Di mana:
 - \(t\) adalah istilah (term) tertentu.
 - \(d\) adalah dokumen tertentu.
 - \(f(t, d)\) adalah frekuensi kemunculan istilah \(t\) dalam dokumen \(d\).
-- ```math{\sum_{k}f(k, d)}``` adalah jumlah semua istilah dalam dokumen \(d\).
+- jumlah semua istilah dalam dokumen \(d\) yang dilambangkan oleh
+```math
+{\sum_{k}f(k, d)}
+```
 
 sedangkan **Inverse Document Frequency** akan mengurangi bobot suatu term jika kemunculannya banyak tersebar diseluruh dokumen, memiliki formula (Katsov, 2017):
 ```math
