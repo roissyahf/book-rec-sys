@@ -174,7 +174,7 @@ Keuntungan collaborative-filtering yaitu (1) tidak perlu _domain knowledge_ kare
 
 Neural Collaborative Filtering (NCF) digunakan dalam proyek ini. Arsitektur NCF memiliki _input data sparse_ (rating pengguna dan peringkat item), yang diubah menjadi informasi _dense information_ menggunakan _embedding layer_. Multilayer perceptron kemudian menggabungkan kedua fitur. Dalam proses _training_, rating yang diketahui digunakan sebagai label. Setelah proses _training_ selesai, model dapat memprediksi rating yang tidak diketahui dalam proses nonlinier (Bobadilla dkk., 2020).
 
-Pada projek ini, dibangun kelas `RecommenderNet` untuk membangun model NCF, dengan code block berikut.
+Pada projek ini, model NCF dibangun melalui kelas `RecommenderNet`, dengan code block berikut.
 
 ```
 EMBEDDING_SIZE = 50
@@ -230,6 +230,11 @@ Gambar 7. Hasil rekomendasi buku dengan Deep Learning
 ![Screenshot 2024-11-09 140500 DL test](https://github.com/user-attachments/assets/086a79b7-8953-496a-9657-d1581107f6a8)
 
 Projek ini juga menggunakan model lain yaitu Singular Value Decomposition (SVD) yang melakukan faktorisasi pada matriks bukan nol (Zheng, Ding, & Nie, 2018). Algoritma ini mengurangi jumlah fitur dari sebuah dataset dengan mengurangi dimensi ruang dari N-dimensi menjadi K-dimensi (di mana K < N), struktur matriks yang digunakan yaitu setiap baris mewakili pengguna, dan setiap kolom mewakili item. Elemen-elemen dari matriks ini adalah rating yang diberikan kepada item oleh pengguna.
+
+Cara mengimplementasikannya sangat mudah, seperti pada code block berikut.
+```
+results = cross_validate(SVD(), data, measures=['RMSE', 'MAE'], cv=10, verbose=True)
+```
 
 Gambar 8. Hasil rekomendasi buku dengan SVD
 ![Screenshot 2024-11-09 143744 svd](https://github.com/user-attachments/assets/cff407aa-1c09-4042-9fe2-aac911d1c7a4)
