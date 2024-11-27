@@ -94,29 +94,23 @@ Setelah itu, dataset hasil penggabungan tadi, ditransformasi ke dalam bentuk piv
 
 Dalam projek ini, juga diimplementasikan **content-based filtering dengan menghitung cosine-similarity**, tahap pemrosesannya melibatkan penggunaan TF-IDF (Term Frequency and Inverse Document Frequency). **TF-IDF** merupakan ukuran relevansi sebuah kata dengan dokumen, yang memiliki formula (Katsov, 2017):
 ```math
-\[
 TF\text{-}IDF(t, d) = TF(t, d) \times IDF(t)
-\]
 ```
 
 **Term-Frequency** merupakan frekuensi kemunculan term i pada dokumen j dibagi dengan total term pada dokumen j, dengan formula (Katsov, 2017):
 ```math
-\[
 TF(t, d) = \frac{f(t, d)}{\sum_{k}f(k, d)}
-\]
 ```
 
 Di mana:
 - \(t\) adalah istilah (term) tertentu.
 - \(d\) adalah dokumen tertentu.
 - \(f(t, d)\) adalah frekuensi kemunculan istilah \(t\) dalam dokumen \(d\).
-- \(\sum_{k}f(k, d)\) adalah jumlah semua istilah dalam dokumen \(d\).
+- ```math{\sum_{k}f(k, d)}``` adalah jumlah semua istilah dalam dokumen \(d\).
 
 sedangkan **Inverse Document Frequency** akan mengurangi bobot suatu term jika kemunculannya banyak tersebar diseluruh dokumen, memiliki formula (Katsov, 2017):
 ```math
-\[
 IDF(t) = \log\left(\frac{N}{1 + n(t)}\right)
-\]
 ```
 
 Di mana:
@@ -238,9 +232,14 @@ Gambar 8. Hasil rekomendasi buku dengan SVD
 ![Screenshot 2024-11-09 143744 svd](https://github.com/user-attachments/assets/cff407aa-1c09-4042-9fe2-aac911d1c7a4)
 
 ## Evaluation
-Kinerja K-NN dalam merekomendasikan buku, dapat dievaluasi melalui kemampuannya dalam memberikan rekomendasi yang sesuai bagi pengguna (Teknologi Informasi, Pascasarjana, & Teknologi Yogyakarta, 2022). Tahap evaluasi ini dilakukan dengan menghitung rata-rata skor akurasi untuk semua parameter k yang telah di-split  menggunakan K-Fold Cross Validation (Sarmandanaa, Widiarthaa, Putria, & Astawaa, 2024). Dengan formula skor akurasi yaitu (Utomo & Probosini, 2020):
+Kinerja K-NN dalam merekomendasikan buku, dapat dievaluasi melalui kemampuannya dalam memberikan rekomendasi yang sesuai bagi pengguna (Teknologi Informasi, Pascasarjana, & Teknologi Yogyakarta, 2022). Tahap evaluasi ini dilakukan dengan menghitung rata-rata skor akurasi untuk semua parameter k yang telah di-split menggunakan K-Fold Cross Validation (Sarmandanaa, Widiarthaa, Putria, & Astawaa, 2024). Dengan formula skor akurasi yaitu (Utomo & Probosini, 2020):
 ```math
-Accuracy = \frac{Total prediksi yang benar}{Total sampel}
+Accuracy = \frac{TP+TN}{TP+TN+FP+FN}
+```
+
+Bisa juga menggunakan skor Precision yaitu (Katsov, 2017):
+```math
+Precision = \frac{TP}{TP+FP}
 ```
 
 Untuk model Deep Learning dan SVD, digunakan RMSE (*Root Mean Square Error*) sebagai metrik evaluasi, sebagai tambahan dihitung juga skor MAE (*Mean Absolute Error*) untuk mengevaluasi performa SVD. RMSE menghitung kesalahan prediksi dengan mengkuadratkan selisih nilai aktual dengan nilai prediksi, lalu dibagi dengan banyaknya data pada *set* yang digunakan, dan hasilnya diakarkan sebagaimana yang tercantum dalam formula berikut. Semakin kecil skor RMSE dan MAE, semakin baik performa model karena nilai prediksi yang dihasilkan semakin mendekati nilai aktual.
@@ -257,7 +256,7 @@ Gambar 9. Hasil training Deep Learning model
 
 Menggunakan 30 epoch, hasil training dapat dilihat pada Gambar 6. Diperoleh RMSE pada training set sebesar 0.3583, sedangkan RMSE pada validation set sebesar 0.4284.
 
-Tabel 2. Hasil training SVD
+Tabel 4. Hasil training SVD
 | Note | Fold 1 | Fold 2 | Fold 3 | Fold 4 | Fold 5 | Fold 6 | Fold 7 | Fold 8 | Fold 9 | Fold 10 | Mean | Std  |   
 |:-----|:------:|:------:|:------:|:------:|:------:|:------:|:------:|:------:|:------:|:------:|:------:|----:|
 | RMSE (testset) |  3.1919 | 3.1725 | 3.1883 | 3.1817 | 3.1858 | 3.2060 |3.1733 | 3.1868 | 3.2092 | 3.1866 | 3.1882 | 0.0114  |
