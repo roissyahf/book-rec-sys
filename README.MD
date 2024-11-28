@@ -60,7 +60,7 @@ Meskipun terdapat rating implisit yang ditandai dengan nilai 0, projek ini hanya
 
 Tabel 3. Informasi detail dari Users.csv
 | **Nama variabel** | **Uraian** | **Jumlah baris non-null** | **Dtype** |
-| --- | --- | --- | -- | -- |
+| --- | --- | --- | -- |
 | User-ID | ID pengguna yang telah dianonimkan untuk menjaga privasi | 278858 | int64 |
 | Location | Lokasi pengguna | 278858 | object |
 | Age | Usia pengguna | 168096 | float64 |
