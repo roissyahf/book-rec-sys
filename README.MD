@@ -32,16 +32,16 @@ Tabel 1. Informasi detail dari Books.csv
 
 Dataset ini mengandung informasi tentang buku, yang diidentifikasi berdasarkan ISBN.
 
-| **Nama variabel** | **Uraian** | **Jumlah baris** | **Count** | **Dtype** |
-| --- | --- | --- | -- | -- |
-| ISBN | Kode pengidentifikasian buku yang bersifat unik, yang terdiri dari deretan angka 13 digit mengandung informasi: Judul buku, Penerbit, Kelompok penerbit | 271360 | non-null | object |
-| Book-Title | Judul buku | 271360 | non-null | object |
-| Book-Author | Penulis buku | 271358 | non-null | object |
-| Year-Of-Publication | Tahun publikasi buku | 271360 | non-null | object |
-| Publisher | Penerbit buku | 271358 | non-null | object |
-| Image-URL-S | Link menuju gambar buku ukuran small | 271360 | non-null | object |
-| Image-URL-M | Link menuju gambar buku ukuran medium | 271360 | non-null | object |
-| Image-URL-L | Link menuju gambar buku ukuran large | 271357 | non-null | object |
+| **Nama variabel** | **Uraian** | **Jumlah baris non-null** | **Dtype** |
+| --- | --- | --- | -- |
+| ISBN | Kode pengidentifikasian buku yang bersifat unik, yang terdiri dari deretan angka 13 digit mengandung informasi: Judul buku, Penerbit, Kelompok penerbit | 271360 | object |
+| Book-Title | Judul buku | 271360 | object |
+| Book-Author | Penulis buku | 271358 | object |
+| Year-Of-Publication | Tahun publikasi buku | 271360 | object |
+| Publisher | Penerbit buku | 271358 | object |
+| Image-URL-S | Link menuju gambar buku ukuran small | 271360 | object |
+| Image-URL-M | Link menuju gambar buku ukuran medium | 271360 | object |
+| Image-URL-L | Link menuju gambar buku ukuran large | 271357 | object |
 
 Berbicara tentang kondisi data pada **Books.csv:**
 - Kolom Image-URL-S, Image-URL-M, Image-URL-L didrop karena tidak diperlukan dalam pembuatan model.
@@ -50,20 +50,20 @@ Berbicara tentang kondisi data pada **Books.csv:**
 - Terdapat tahun pada Year-Of-Publication yang ditulis dalam string, sehingga perlu diubah menjadi numerical value menggunakan fungsi `pd.to_numeric`. Untuk tahun yang tertulis 0 serta 2027 ke atas perlu diubah juga, caranya yaitu mengganti nilai tersebut dengan nilai kosong, lalu mengisi nilai kosong tadi dengan media pada kolom Year-Of-Publication.
 
 Tabel 2. Informasi detail dari Ratings.csv
-| **Nama variabel** | **Uraian** | **Jumlah baris** | **Count** | **Dtype** |
-| --- | --- | --- | -- | -- |
-| User-ID | ID pengguna yang telah dianonimkan dan dipetakan ke bilangan bulat | 1149780 | non-null | int64 |
-| ISBN | Kode pengidentifikasian buku yang bersifat unik, yang terdiri dari deretan angka 13 digit mengandung informasi: Judul buku, Penerbit, Kelompok penerbit | 1149780 | non-null | object |
-| Book-Rating | Rating buku yang diberikan oleh pengguna, baik secara eksplisit yang dinyatakan dalam skala 1-10 (nilai yang lebih tinggi menunjukkan apresiasi yang lebih tinggi), atau implisit dinyatakan dengan 0 | 1149780 | non-null | int64 |
+| **Nama variabel** | **Uraian** | **Jumlah baris non-null** | **Dtype** |
+| --- | --- | --- | -- |
+| User-ID | ID pengguna yang telah dianonimkan dan dipetakan ke bilangan bulat | 1149780 | int64 |
+| ISBN | Kode pengidentifikasian buku yang bersifat unik, yang terdiri dari deretan angka 13 digit mengandung informasi: Judul buku, Penerbit, Kelompok penerbit | 1149780 | object |
+| Book-Rating | Rating buku yang diberikan oleh pengguna, baik secara eksplisit yang dinyatakan dalam skala 1-10 (nilai yang lebih tinggi menunjukkan apresiasi yang lebih tinggi), atau implisit dinyatakan dengan 0 | 1149780 | int64 |
 
 Meskipun terdapat rating implisit yang ditandai dengan nilai 0, projek ini hanya menggunakan rating eksplisit dengan nilai 1-10 dengan alasan memberikan fokus pada model dengan hanya memproses rating eksplisit yang mengindikasikan kepuasan pengguna terhadap buku yang dibeli.
 
 Tabel 3. Informasi detail dari Users.csv
-| **Nama variabel** | **Uraian** | **Jumlah baris** | **Count** | **Dtype** |
+| **Nama variabel** | **Uraian** | **Jumlah baris non-null** | **Dtype** |
 | --- | --- | --- | -- | -- |
-| User-ID | ID pengguna yang telah dianonimkan untuk menjaga privasi | 278858 | non-null | int64 |
-| Location | Lokasi pengguna | 278858 | non-null | object |
-| Age | Usia pengguna | 168096 | non-null | float64 |
+| User-ID | ID pengguna yang telah dianonimkan untuk menjaga privasi | 278858 | int64 |
+| Location | Lokasi pengguna | 278858 | object |
+| Age | Usia pengguna | 168096 | float64 |
 
 Setelah ditelusuri, sebanyak 39.7% dari kolom Age isinya kosong. Selain itu, terdapat user dengan usia lebih dari 90 tahun dan user berusia kurang dari 5 tahun. Untuk mengatasi masalah tersebut, value akan diisi dengan nilai median dari kolom Age.
 
@@ -83,7 +83,7 @@ Gambar 4. Top 10 author
 Gambar 5. Top 10 publisher
 ![4 publisher](https://github.com/user-attachments/assets/2f6dd1f1-f39b-4ba2-8d63-f79cae7111df)
 
-Berdasarkan visualisasi pada Gambar 1, 2 dan 3, diperoleh informasi:
+Berdasarkan visualisasi pada Gambar 1, 2, 3, 4, dan 5 diperoleh informasi:
 1. Persebaran usia pada dataset yang digunakan yaitu usia 30 mendominasi hingga mencapai angka 120000, kemudian disumbang oleh user dengan usia di bawah 30 tahun yaitu 15-29 tahun, dan user di atas usia 30 tahun dengan rentang usia 31-75 tahun. Hal ini mengindikasikan, user di platform tersebut sangat variatif karena merangkul remaja, orang dewasa, orang tua, hingga orang lanjut usia.
 2. Pada projek ini hanya digunakan rating eksplisit. Rating 8 menjadi yang tertinggi mencapai angka 90000, lalu disusul oleh rating 10, 7, dan 9. Artinya, user puas dan suka dengan buku yang dibelinya. Adapun, masih ada user yang memberikan rating rendah yaitu rating 4, 3, 2 bahkan 1 meskipun jumlahnya jika ditotal kurang dari 18000 orang. Perlu digali penyebabnya, sehingga ke depannya user yang memberi rating rendah dapat meningkatkan user experiencenya sehingga diharapkan dapat memberikan rating yang lebih tinggi.
 3. Barchart tentang top 10 buku, author, dan publisher, memberikan temuan tentang buku, author, dan publisher yang popular. Stephen King menjadi author nomer 1, buku dengan judul 'The Lovely Bones: A Novel' menempati tangga teratas dalam jajaran buku populer, sedangkan publisher nomer 1 yaitu Ballantine Books.
