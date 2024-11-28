@@ -29,7 +29,9 @@ Untuk memberikan pengalaman menyenangkan pada pengguna dengan diberikannya rekom
 Proyek ini menggunakan dataset dari Kaggle yang berjudul *Book Recommendation Dataset* yang dapat diakses melalui tautan berikut https://www.kaggle.com/datasets/arashnic/book-recommendation-dataset/data. Dataset tersebut berisikan 3 file csv, yaitu Books.csv, Ratings.csv, dan Users.csv dengan penjelasan detail terlampir pada tabel 1, tabel 2, dan tabel 3.
 
 Tabel 1. Informasi detail dari Books.csv
+
 Dataset ini mengandung informasi tentang buku, yang diidentifikasi berdasarkan ISBN.
+
 | **Nama variabel** | **Uraian** | **Jumlah baris** | **Count** | **Dtype** |
 | --- | --- | --- | -- | -- |
 | ISBN | Kode pengidentifikasian buku yang bersifat unik, yang terdiri dari deretan angka 13 digit mengandung informasi: Judul buku, Penerbit, Kelompok penerbit | 271360 | non-null | object |
@@ -70,21 +72,21 @@ Gambar 1. Usia User
 ![0 age](https://github.com/user-attachments/assets/d3fd191e-0d5e-4467-9584-6c7564ed613f)
 
 Gambar 2. Countplot Rating Buku
-![1 countplot book rating](https://github.com/user-attachments/assets/f73b6301-71ce-482e-a7b3-5cc0071c00ae)
+![1 book-rating](https://github.com/user-attachments/assets/ea030769-c02b-4229-b605-bd100b4dba38)
 
 Gambar 3. Top 10 buku
-![2 top 10 book title](https://github.com/user-attachments/assets/3ed87e2b-86ca-4c56-9104-a4cde3884d79)
+![2 book-title](https://github.com/user-attachments/assets/f4088a07-f90f-4797-8d98-09dba5b7ff51)
 
 Gambar 4. Top 10 author
-![3  top 10 book author](https://github.com/user-attachments/assets/098140e8-3b96-4b3b-a88a-b2f0b3d7c342)
+![3 book-author](https://github.com/user-attachments/assets/b33a922e-ea6e-457b-99b4-e477da702a12)
 
 Gambar 5. Top 10 publisher
-![4  top 10 book publisher](https://github.com/user-attachments/assets/11fe6b65-3c77-4c09-93f8-50688d6d2bb3)
+![4 publisher](https://github.com/user-attachments/assets/2f6dd1f1-f39b-4ba2-8d63-f79cae7111df)
 
 Berdasarkan visualisasi pada Gambar 1, 2 dan 3, diperoleh informasi:
 1. Persebaran usia pada dataset yang digunakan yaitu usia 30 mendominasi hingga mencapai angka 120000, kemudian disumbang oleh user dengan usia di bawah 30 tahun yaitu 15-29 tahun, dan user di atas usia 30 tahun dengan rentang usia 31-75 tahun. Hal ini mengindikasikan, user di platform tersebut sangat variatif karena merangkul remaja, orang dewasa, orang tua, hingga orang lanjut usia.
-2. Pada projek ini hanya digunakan rating eksplisit. Rating 8 menjadi yang tertinggi mencapai angka 1800, lalu disusul oleh rating 10, 9, dan 7. Artinya, user puas dan suka dengan buku yang dibelinya. Adapun, masih ada user yang memberikan rating rendah yaitu rating 4, 3, 2 bahkan 1 meskipun jumlahnya jika ditotal kurang dari 250 orang. Perlu digali penyebabnya, sehingga ke depannya user yang memberi rating rendah dapat meningkatkan user experiencenya sehingga diharapkan dapat memberikan rating yang lebih tinggi.
-3. Barchart tentang top 10 buku, author, dan publisher, memberikan temuan tentang buku, author, dan publisher yang popular. John Grisham menjadi author nomer 1, buku dengan judul 'The Lovely Bones: A Novel' menempati tangga teratas dalam jajaran buku populer, sedangkan publisher nomer 1 yaitu Ballantine Books.
+2. Pada projek ini hanya digunakan rating eksplisit. Rating 8 menjadi yang tertinggi mencapai angka 90000, lalu disusul oleh rating 10, 7, dan 9. Artinya, user puas dan suka dengan buku yang dibelinya. Adapun, masih ada user yang memberikan rating rendah yaitu rating 4, 3, 2 bahkan 1 meskipun jumlahnya jika ditotal kurang dari 18000 orang. Perlu digali penyebabnya, sehingga ke depannya user yang memberi rating rendah dapat meningkatkan user experiencenya sehingga diharapkan dapat memberikan rating yang lebih tinggi.
+3. Barchart tentang top 10 buku, author, dan publisher, memberikan temuan tentang buku, author, dan publisher yang popular. Stephen King menjadi author nomer 1, buku dengan judul 'The Lovely Bones: A Novel' menempati tangga teratas dalam jajaran buku populer, sedangkan publisher nomer 1 yaitu Ballantine Books.
 
 ## Data Preparation
 ### Tahapan persiapan untuk content-based filtering
@@ -245,21 +247,42 @@ Kinerja K-NN dalam merekomendasikan buku, dapat dievaluasi melalui kemampuannya 
 Accuracy = \frac{TP+TN}{TP+TN+FP+FN}
 ```
 
-Bisa juga menggunakan skor Precision yaitu (Katsov, 2017):
+Akurasi mengukur proporsi buku yang direkomendasikan oleh penulis yang sama dengan buku pertama dalam daftar bacaan aktual dibandingkan dengan total buku dari penulis tersebut dalam kumpulan data.
+
+Bisa juga menggunakan skor Precision yaitu:
 ```math
 Precision = \frac{TP}{TP+FP}
 ```
 
+Precision dihitung dengan mengidentifikasi berapa banyak buku yang direkomendasikan yang memiliki penulis yang sama dengan salah satu dari buku yang sebenarnya dibaca pengguna (true positive) dibandingkan dengan buku yang tidak (false positive). Kelebihan dari Precision berfokus pada bagaimana performa model terhadap label dengan data positif, adapun kekurangan dari metriks ini yaitu label negatif tidak diperhitungkan.
+
+Gambar 9. Hasil evaluasi Content-based filtering dengan Cosine Similarity
+![Screenshot 2024-11-28 122827 precision, acc](https://github.com/user-attachments/assets/1ed70354-848b-4434-a58d-a4dac80cc5a5)
+
+Test data dalam format dictionary dengan key berupa judul buku yang dibaca oleh pengguna, serta value berupa daftar buku yang dibaca oleh pengguna yang sama yang membaca judul tersebut. Digunakan 3 sample pada test_data, seperti yang terlihat pada code block berikut:
+```
+test_data = {
+    "All Things Wise and Wonderful": ["The Market Square Dog", "James Herriot's Dog Stories"],
+    "Black Tower": ["Death of an Expert Witness", "Death in Holy Orders"],
+    "The Murder Room : A Novel (Vintage)": ["Death in Holy Orders", "The Children of Men"]
+}
+```
+Dari test_data yang digunakan, kita dapat melihat bahwa rata-rata presisi untuk content-based filtering dengan cosine similarity adalah 43,33%, dan rata-rata akurasinya adalah 93,33%.
+
 Untuk model Deep Learning dan SVD, digunakan RMSE (*Root Mean Square Error*) sebagai metrik evaluasi, sebagai tambahan dihitung juga skor MAE (*Mean Absolute Error*) untuk mengevaluasi performa SVD. RMSE menghitung kesalahan prediksi dengan mengkuadratkan selisih nilai aktual dengan nilai prediksi, lalu dibagi dengan banyaknya data pada *set* yang digunakan, dan hasilnya diakarkan sebagaimana yang tercantum dalam formula berikut. Semakin kecil skor RMSE dan MAE, semakin baik performa model karena nilai prediksi yang dihasilkan semakin mendekati nilai aktual.
+
 ```math
 RMSE = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2}
 ```
+
+Berbeda dengan RMSE, MAE mengukur kebaikan prediksi dan menghitung rata-rata absolut dari selisih antara rating yang diprediksi dengan rating sebenarnya, tanpa memperbesar dampak kesalahan yang lebih besar.
+Hasil MAE mudah diinterpretasikan daripada RMSE, karena kesalahan dihitung secara linear.
 
 ```math
 MAE = \sum_{i=1}^{D}|x_i-y_i|
 ```
 
-Gambar 9. Hasil training Deep Learning model
+Gambar 10. Hasil training Deep Learning model
 ![rmse dl](https://github.com/user-attachments/assets/ac4eb445-987c-4ce8-a961-ed314e420e13)
 
 Menggunakan 30 epoch, hasil training dapat dilihat pada Gambar 6. Diperoleh RMSE pada training set sebesar 0.3583, sedangkan RMSE pada validation set sebesar 0.4284.
@@ -277,7 +300,7 @@ Dataset dipisah ke dalam 10 k-fold cross validation, diperoleh rata-rata skor RM
 ## Conclusion
 Proyek ini telah menjawab problem statement, meraih goals, serta mencapai solution statement, mengingat sistem rekomendasi dengan content-based filtering dan collaborative filtering berhasil dibangun. Content-based filtering untuk merekomendasikan buku dapat dibangun dengan K-nearest neighbor (K-NN) dengan memanfaatkan Cosine Similarity untuk mengukur kemiripan antar item. Sedangkan, dalam membangun collaborative filtering dapat dilakukan dengan melatih model Deep Learning dan Singular Value Decomposition (SVD). Hasil rekomendasi telah terpersonalisasi, untuk K-NN pengguna diberikan rekomendasi buku yang mirip berdasarkan authornya. Sedangkan, untuk model Deep Learning dan SVD, hasil rekomendasi didasarkan pada pengguna lain yang memiliki selera serupa yang diukur melalui rating. Melalui hasil rekomendasi tersebut, pengguna menjadi terbantu dalam menemukan konten baru yang mungkin belum mereka lihat sebelumnya dengan mempersempit pilihan mereka.
 
-Untuk mengukur kemampuan model dalam merekomendasikan item yang sesuai dengan minat pengguna, digunakan RMSE dan MAE. Dalam penelitian ini, tidak diukur ketepatan model K-NN dalam memberikan rekomendasi buku, namun jika membandingkan RMSE model Deep Learning dengan SVD, diperoleh hasil Deep Learning lebih unggul daripada SVD, dengan RMSE mencapai angka 0.428 pada validation set, sedangkan rerata RMSE di test set SVD masih di angka 3.1882.
+Dalam content-based filtering dengan Cosine Similarity, dari sampel test data diperoleh skor rata-rata presisi yaitu 43,33%, sedangkan rata-rata akurasinya adalah 93,33%. Untuk mengukur kemampuan model dalam merekomendasikan item yang sesuai dengan minat pengguna dalam collaborative-filtering, digunakan RMSE dan MAE. Jika membandingkan RMSE model Deep Learning dengan SVD, diperoleh hasil Deep Learning lebih unggul daripada SVD, dengan RMSE mencapai angka 0.428 pada validation set, sedangkan rerata RMSE di test set SVD masih di angka 3.1882. Hasil dari content-based filtering juga cukup bagus, meskipun skor presisinya masih di bawah 50%.
 
 ## Referensi
 Aditya, P. H., Budi, I., & Munajat, Q. (2016). A comparative analysis of memory-based and model-based collaborative filtering on the implementation of recommender system for e-commerce in Indonesia: a case Study PT X. Conference Paper. https://doi.org/10.1109/icacsis.2016.7872755.
